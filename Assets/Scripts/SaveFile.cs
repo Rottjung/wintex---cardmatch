@@ -12,4 +12,5 @@ public class SaveFile
 public struct SaveData
 {
     public int score;
+    public int level;
 }

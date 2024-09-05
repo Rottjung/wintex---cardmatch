@@ -12,6 +12,8 @@ public class MatchManager : MonoBehaviour
     private Card firstCard;
     private Card secondCard;
     private AudioSource audioSource;
+    private int pairs;
+    private int solved;
 
     private void Start()
     {
@@ -20,8 +22,12 @@ public class MatchManager : MonoBehaviour
 
     public void GenerateCardGrid(int level)
     {
+        solved = 0;
         GameModeGame gmg = GameModeGame.Get<GameModeGame>();
         GridLayoutGroup grid = FindFirstObjectByType<GridLayoutGroup>();
+
+        for(int i = grid.transform.childCount - 1; i >= 0; i--)
+            Destroy(grid.transform.GetChild(i).gameObject);
 
         RectTransform gridRect = grid.GetComponent<RectTransform>();
         float gridWidth = gridRect.rect.width;
@@ -38,13 +44,14 @@ public class MatchManager : MonoBehaviour
         rows -= rows % 2 != 0 ? 1 : 0;
 
         int maxCards = Mathf.Min(columns * rows, 32);
+        pairs = maxCards / 2;
 
         CardsDBData cardsData = gmg.cardsDB.dictionary[level];
 
         List<Sprite> selectedSprites = new List<Sprite>();
         int amount = cardsData.sprites.Length;
 
-        for (int i = 0; i < maxCards / 2; i++)
+        for (int i = 0; i <pairs; i++)
         {
             selectedSprites.Add(cardsData.sprites[i % amount]);
             selectedSprites.Add(cardsData.sprites[i % amount]);
@@ -90,6 +97,9 @@ public class MatchManager : MonoBehaviour
         firstCard = null;
         secondCard = null;
         GameModeGame.Get<GameModeGame>().AddScore();
+        solved++;
+        if (solved == pairs)
+            GameModeBase.Get<GameModeGame>().FinishLevel();
     }
 
     private IEnumerator FlipCards()

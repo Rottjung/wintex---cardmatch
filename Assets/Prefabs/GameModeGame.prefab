@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 0}
-  matchManager: {fileID: 0}
+  matchManager: {fileID: -2103443229355085794}
   cardsDB: {fileID: 11400000, guid: 45e80560a73ccb544a15038ee4daec3b, type: 2}
   cardPrefab: {fileID: 4404831988867186294, guid: c13d1851231e4424a8ce541236710bbb, type: 3}
+  finishedLevelScreen: {fileID: 0}
 --- !u!114 &-2103443229355085794
 MonoBehaviour:
   m_ObjectHideFlags: 0

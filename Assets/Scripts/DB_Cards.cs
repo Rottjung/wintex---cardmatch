@@ -8,7 +8,7 @@ public class Dictionary_Int_CardsDBData : SerializableDictionaryBase<int, CardsD
 [Serializable]
 public class CardsDBData : DBData_Base<int>
 {
-    public Sprite[] sprites = { };
+    public Sprite[] sprites = { }; //should be changed to addressables for optimization, no time though :(
 }
 
 [Serializable]

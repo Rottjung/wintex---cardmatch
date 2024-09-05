@@ -1,5 +1,6 @@
 
 
+using System;
 using UnityEngine;
 
 public class GameInstance : Singleton<GameInstance>
@@ -11,7 +12,7 @@ public class GameInstance : Singleton<GameInstance>
     private bool m_HasLoadedSavefile;
     public GameModeBase GameMode => m_GameMode;
     private GameModeBase m_GameMode;
-
+    private AudioSource audioSource;
 
     public bool IsGameModeAvailable<T>() where T : GameModeBase
     {
@@ -31,9 +32,17 @@ public class GameInstance : Singleton<GameInstance>
             LoadMainMenu();
         }
         else
+        {
             CreateNewSavefile();
+            if (!SaveGame())
+                Debug.Log("Something went wrong Creating a new Savefile");
+            else
+            {
+                m_HasLoadedSavefile = true;
+                LoadMainMenu();
+            }
+        }
     }
-   
 
     public void CreateNewSavefile()
     {
@@ -41,14 +50,7 @@ public class GameInstance : Singleton<GameInstance>
         m_Savefile.savefileName = GameName;
         m_Savefile.data = new SaveData();
         m_Savefile.data.score = 0;
-
-        if (!SaveGame())
-            Debug.Log("Something went wrong Creating a new Savefile");
-        else
-        {
-            m_HasLoadedSavefile = true;
-            LoadMainMenu();
-        }
+        m_Savefile.data.level = 0;
     }
 
     public bool SaveGame()
@@ -63,7 +65,8 @@ public class GameInstance : Singleton<GameInstance>
 
     protected void Start()
     {
-        if(LoadingManager.IsInstanceAvailable())
+        audioSource = GetComponent<AudioSource>();
+        if (LoadingManager.IsInstanceAvailable())
             LoadingManager.Instance.OnLoadingComplete += Init;
         else
             Init();
@@ -98,5 +101,13 @@ public class GameInstance : Singleton<GameInstance>
             GameObject go = new GameObject("GameModeBase");
             m_GameMode = go.AddComponent<GameModeBase>();
         }
+    }
+    internal void StartMainTheme()
+    {
+        audioSource.Play();
+    }
+    internal void StopMainTheme()
+    {
+        audioSource.Stop();
     }
 }

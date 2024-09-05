@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,16 +8,19 @@ public class GameModeGame : GameModeBase
     public MatchManager matchManager;
     public DB_Cards cardsDB;
     public GameObject cardPrefab;
+    public GameObject finishedLevelScreen;
     private int currentScore;
+    private int currentLevel;
 
     public override void Init(bool OnReady = true)
     {
         base.Init(OnReady);
         matchManager = GetComponent<MatchManager>();
-        matchManager.GenerateCardGrid(0);
-        if (GameInstance.Instance.SaveFile.data.score <= 0)
-            currentScore = GameInstance.Instance.SaveFile.data.score;
+        currentScore = GameInstance.Instance.SaveFile.data.score;
         SetScore();
+        currentLevel = GameInstance.Instance.SaveFile.data.level;
+        matchManager.GenerateCardGrid(currentLevel);
+        GameInstance.Instance.StopMainTheme();
     }
 
     internal void AddScore()
@@ -25,6 +29,23 @@ public class GameModeGame : GameModeBase
         SetScore();
         GameInstance.Instance.SaveFile.data.score = currentScore;
         GameInstance.Instance.SaveGame();
+    }
+
+    internal void FinishLevel()
+    {
+        finishedLevelScreen.SetActive(true);
+    }
+
+    public void NextLevel()
+    {
+        if(currentLevel < cardsDB.dictionary.Count) 
+            currentLevel++;
+        matchManager.GenerateCardGrid(currentLevel);
+    }
+
+    public void BackToMain()
+    {
+        LoadingManager.Instance.LoadByNameAsync("MainMenu");
     }
 
     private void SetScore()

@@ -495,7 +495,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908722837}
         m_TargetAssemblyTypeName: GameModeMenu, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: NewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

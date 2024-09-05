@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class GameModeMenu : GameModeBase
 {
+    public override void Init(bool OnReady = true)
+    {
+        base.Init(OnReady);
+        GameInstance.Instance.StartMainTheme();
+    }
+
     public void NewGame()
     {
         GameInstance.Instance.CreateNewSavefile();
