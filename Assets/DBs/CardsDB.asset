@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8fa6801ebf54574cbb716a3a595a7ee, type: 3}
+  m_Name: CardsDB
+  m_EditorClassIdentifier: 
+  dictionary:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0000000001000000
+    _keys: 0000000001000000
+    _values:
+    - Key: 0
+      sprites:
+      - {fileID: 21300000, guid: 248071ee2797845419335763e32bb76b, type: 3}
+      - {fileID: 21300000, guid: 205d1936a0bfe3f40b76591e50ff97e0, type: 3}
+      - {fileID: 21300000, guid: fa78637b0518e4c4185f2f21f72914ad, type: 3}
+      - {fileID: 21300000, guid: 9bade54619b6ea24cae94589df4945e3, type: 3}
+      - {fileID: 21300000, guid: aed0bef573ccc1e4e92dfc2413d2898a, type: 3}
+      - {fileID: 21300000, guid: cfd9906f8aa4b96488eac759b2e546af, type: 3}
+      - {fileID: 21300000, guid: 8be9b851cb9b11543afccc19df034775, type: 3}
+      - {fileID: 21300000, guid: a24c3510973c7494a8ca276d715c9ffe, type: 3}
+      - {fileID: 21300000, guid: 71a72c8527ec0f049bde438e3aafee7a, type: 3}
+      - {fileID: 21300000, guid: fb4af0e3f81c731449190aa9a846cf75, type: 3}
+      - {fileID: 21300000, guid: f81f30a3c3f7b874aa69c7ae90cba740, type: 3}
+      - {fileID: 21300000, guid: 7df1e3cc290dc4c4facc8bd7ea4ef78d, type: 3}
+      - {fileID: 21300000, guid: 48746832624b0c04e91f7f92e828efe4, type: 3}
+      - {fileID: 21300000, guid: 92dad074ce68eb04d9c9d2548559ad75, type: 3}
+      - {fileID: 21300000, guid: 3e822f4f70b1b9e438169c1654f6e6c6, type: 3}
+      - {fileID: 21300000, guid: e7b0e9cae28b74c40b029aac1aa413a5, type: 3}
+      - {fileID: 21300000, guid: 24bb56edb8db5eb429b183dbc3c45f4a, type: 3}
+      - {fileID: 21300000, guid: 92a8650191973b7458091ce525b48236, type: 3}
+      - {fileID: 21300000, guid: 59b7753118c8b3a4c8fd54f924441916, type: 3}
+      - {fileID: 21300000, guid: f35010dc5ed2f0b40a37818adc36d4b2, type: 3}
+      - {fileID: 21300000, guid: e77ff6eaecf7e8942a8c70672108f017, type: 3}
+      - {fileID: 21300000, guid: e21f025231b82e2449b639f7c266bb5a, type: 3}
+      - {fileID: 21300000, guid: 5985a90929faa6e41957cc346284169c, type: 3}
+      - {fileID: 21300000, guid: 7cf711bab14745d4fbf7f7960ce289c9, type: 3}
+      - {fileID: 21300000, guid: ec3874815246ece4d9406f5c902f09e8, type: 3}
+      - {fileID: 21300000, guid: 73c11965e47798a4cbedd2727edfcf83, type: 3}
+      - {fileID: 21300000, guid: 11f1f8d15c41e364ab8ba9aed594a449, type: 3}
+      - {fileID: 21300000, guid: e1a811a5fe458fb43accd8d437152abb, type: 3}
+      - {fileID: 21300000, guid: af62e2173519890468e1b1e756220cf3, type: 3}
+      - {fileID: 21300000, guid: d84ed5612a98dde4bb13c7871077c41f, type: 3}
+      - {fileID: 21300000, guid: f441cce01836cdf40bf4e309135a3815, type: 3}
+      - {fileID: 21300000, guid: f4fcb888de0aa404fab8baf6543fce03, type: 3}
+    - Key: 0
+      sprites: []

@@ -21,7 +21,7 @@ public class AnyInput : MonoBehaviour
         if(anyInputText)
         {
             if (Input.touchSupported)
-                anyInputText.text = "Tab to start";
+                anyInputText.text = "Tap to start";
             else
                 anyInputText.text = "Press any input";
         }

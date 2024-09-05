@@ -8,7 +8,8 @@ public class SaveFile
     public SaveData data;
 }
 
+[System.Serializable]
 public struct SaveData
 {
-
+    public int score;
 }

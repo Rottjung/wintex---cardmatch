@@ -25,7 +25,7 @@ public class GameInstance : Singleton<GameInstance>
 
     public void LoadSavefile()
     {
-        if (SerializationManager<SaveFile>.Load(out m_Savefile))
+        if (LoadGame())
         {
             m_HasLoadedSavefile = true;
             LoadMainMenu();
@@ -39,16 +39,26 @@ public class GameInstance : Singleton<GameInstance>
     {
         m_Savefile = new SaveFile();
         m_Savefile.savefileName = GameName;
+        m_Savefile.data = new SaveData();
+        m_Savefile.data.score = 0;
 
-        if (!SerializationManager<SaveFile>.Save(m_Savefile))
+        if (!SaveGame())
             Debug.Log("Something went wrong Creating a new Savefile");
         else
+        {
+            m_HasLoadedSavefile = true;
             LoadMainMenu();
+        }
     }
 
-    public void SaveGame()
+    public bool SaveGame()
     {
-        SerializationManager<SaveFile>.Save(m_Savefile);
+        return SerializationManager<SaveFile>.Save(m_Savefile);
+    }
+
+    public bool LoadGame()
+    {
+        return SerializationManager<SaveFile>.Load(out m_Savefile);
     }
 
     protected void Start()
@@ -61,8 +71,6 @@ public class GameInstance : Singleton<GameInstance>
 
     private void Init()
     {
-        if(LoadingManager.IsInstanceAvailable())
-            LoadingManager.Instance.OnLoadingComplete -= Init;
         if(m_Savefile == null)
             LoadSavefile();
         LoadGameMode();

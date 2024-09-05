@@ -18,12 +18,12 @@ public class LoadingManager : Singleton<LoadingManager>
     //for OnClick Listeners
     public void LoadSceneAsync(int index)
     {
-        Instance.StartCoroutine(LoadByNameAsync(IndexToSceneName(index)));
+        Instance.StartCoroutine(LoadByNameAsyncRoutine(IndexToSceneName(index)));
     }
 
     public void LoadSceneAsyncAdditive(int index)
     {
-        Instance.StartCoroutine(LoadByNameAdditiveAsync(IndexToSceneName(index)));
+        Instance.StartCoroutine(LoadByNameAdditiveAsyncRoutine(IndexToSceneName(index)));
     }
 
     private string IndexToSceneName(int index)
@@ -31,18 +31,13 @@ public class LoadingManager : Singleton<LoadingManager>
         string pathToScene = SceneUtility.GetScenePathByBuildIndex(index);
         return System.IO.Path.GetFileNameWithoutExtension(pathToScene);
     }
-
-    public IEnumerator LoadAsync(EScenes scene)
-    {
-        Instance.SpawnLoadingScreen();
-        var handle = SceneManager.LoadSceneAsync((int)scene, LoadSceneMode.Single);
-        yield return new WaitWhile(() => handle.isDone);
-        Debug.Log("Loading done");
-        currentScene = scene.ToString();
-        SceneManager.sceneLoaded += FireOnLoadingComplete;
-    }
    
-    public IEnumerator LoadByNameAsync(string scene)
+    public void LoadByNameAsync(string scene)
+    {
+        Instance.StartCoroutine(LoadByNameAsyncRoutine(scene));
+    }
+
+    private IEnumerator LoadByNameAsyncRoutine(string scene)
     {
         Instance.SpawnLoadingScreen();
         var handle = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
@@ -52,17 +47,12 @@ public class LoadingManager : Singleton<LoadingManager>
         SceneManager.sceneLoaded += FireOnLoadingComplete;
     }
 
-    public IEnumerator LoadAdditiveAsync(EScenes scene)
+    private void LoadByNameAdditiveAsync(string scene)
     {
-        Instance.SpawnLoadingScreen();
-        var handle = SceneManager.LoadSceneAsync((int)scene, LoadSceneMode.Additive);
-        yield return new WaitWhile(() => handle.isDone);
-        Debug.Log("Loading done");
-        currentScene = scene.ToString();
-        SceneManager.sceneLoaded += FireOnLoadingComplete;
+        Instance.StartCoroutine(LoadByNameAdditiveAsyncRoutine(scene));
     }
 
-    public IEnumerator LoadByNameAdditiveAsync(string scene)
+    private IEnumerator LoadByNameAdditiveAsyncRoutine(string scene)
     {
         Instance.SpawnLoadingScreen();
         var handle = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -102,14 +92,6 @@ public class LoadingManager : Singleton<LoadingManager>
             Destroy(LSClone);
     }
 
-    internal IEnumerator UnloadSceneAsync(EScenes scene)
-    {
-        var handle = SceneManager.UnloadSceneAsync((int)scene);
-        yield return new WaitWhile(() => handle.isDone);
-        Debug.Log("Loading done");
-        Instance.OnUnloadingComplete?.Invoke();
-    }
-
     internal void MoveGameObjectToCurrentScene(GameObject GO)
     {
         Scene scene = SceneManager.GetSceneByName(currentScene);
@@ -130,10 +112,4 @@ public class LoadingManager : Singleton<LoadingManager>
         }
         SceneManager.MoveGameObjectToScene(GO, scene);
     }
-}
-
-//need to be same order as scenes in buildsettings
-public enum EScenes
-{
-    Intro, MainMenu, 
 }
