@@ -14,12 +14,13 @@ public class MatchManager : MonoBehaviour
     private AudioSource audioSource;
     private int pairs;
     private int solved;
+    private CanvasScaler canvasScaler;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        canvasScaler = FindObjectOfType<CanvasScaler>();
     }
-
     public void GenerateCardGrid(int level)
     {
         solved = 0;
@@ -33,18 +34,34 @@ public class MatchManager : MonoBehaviour
         float gridWidth = gridRect.rect.width;
         float gridHeight = gridRect.rect.height;
 
-        if (gridHeight > gridWidth)
-            grid.startAxis = GridLayoutGroup.Axis.Vertical;
-        else
-            grid.startAxis= GridLayoutGroup.Axis.Horizontal;
-
-        int columns = Mathf.FloorToInt(gridWidth / 300);
-        int rows = Mathf.FloorToInt(gridHeight / 300);
+        int space = Mathf.FloorToInt(grid.cellSize.x + grid.spacing.x);
+        int columns = Mathf.FloorToInt(gridWidth / space);
+        int rows = Mathf.FloorToInt(gridHeight / space);
 
         rows -= rows % 2 != 0 ? 1 : 0;
 
         int maxCards = Mathf.Min(columns * rows, 32);
+
+        maxCards -= maxCards % 2 != 0 ? 1 : 0;
         pairs = maxCards / 2;
+        if (gridHeight > gridWidth)
+        {
+            grid.startAxis = GridLayoutGroup.Axis.Vertical;
+#if UNITY_ANDROID
+            canvasScaler.referenceResolution = new Vector2(1080, 1920);
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = columns;
+#endif
+        }
+        else
+        {
+#if UNITY_ANDROID
+            canvasScaler.referenceResolution = new Vector2(1080, 1920);
+            grid.startAxis= GridLayoutGroup.Axis.Horizontal;
+            grid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+#endif
+            grid.constraintCount = rows;
+        }
 
         CardsDBData cardsData = gmg.cardsDB.dictionary[level];
 

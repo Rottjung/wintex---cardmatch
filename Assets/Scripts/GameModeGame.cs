@@ -38,8 +38,10 @@ public class GameModeGame : GameModeBase
 
     public void NextLevel()
     {
-        if(currentLevel < cardsDB.dictionary.Count) 
+        if (currentLevel < cardsDB.dictionary.Count)
             currentLevel++;
+        else
+            currentLevel = 0; //reset for now so we can keep playing
         matchManager.GenerateCardGrid(currentLevel);
     }
 
